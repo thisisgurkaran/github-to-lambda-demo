@@ -1,11 +1,14 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
-      python: 3.8
+      nodejs: 14.x
     commands:
       - echo "Installing dependencies..."
       - npm install
+      - npm install -g aws-cli  # Install AWS CLI globally if not available
+
   build:
     commands:
       - echo "Zipping deployment package..."
@@ -13,8 +16,9 @@ phases:
       - zip -r9 ../deployment_package.zip .
       - cd ..
       - zip -g deployment_package.zip index.js
+
   post_build:
     commands:
-      - echo "Updating lambda Function..."
+      - echo "Updating Lambda Function..."
       - aws lambda update-function-code --function-name github-to-lambda-demo --zip-file fileb://deployment_package.zip
       - echo "DONE!!"
