@@ -10,11 +10,10 @@ phases:
   build:
     commands:
       - npm install
-      - npm run build  # If your project requires a build step
       - zip -r lambda_function.zip index.js node_modules/
 
   post_build:
     commands:
       - echo "Deploying Lambda Function..."
-      - aws lambda update-function-code --function-name your-lambda-function-name --zip-file fileb://lambda_function.zip
+      - aws lambda update-function-code --function-name github-to-lambda-demo --zip-file fileb://lambda_function.zip
       - echo "Lambda Function deployment completed!"
