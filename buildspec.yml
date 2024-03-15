@@ -5,20 +5,16 @@ phases:
     runtime-versions:
       nodejs: 14.x
     commands:
-      - echo "Installing dependencies..."
-      - npm install
-      - npm install -g aws-cli  # Install AWS CLI globally if not available
+      - npm install -g aws-cli
 
   build:
     commands:
-      - echo "Zipping deployment package..."
-      - cd lib
-      - zip -r9 ../deployment_package.zip .
-      - cd ..
-      - zip -g deployment_package.zip index.js
+      - npm install
+      - npm run build  # If your project requires a build step
+      - zip -r lambda_function.zip index.js node_modules/
 
   post_build:
     commands:
-      - echo "Updating Lambda Function..."
-      - aws lambda update-function-code --function-name github-to-lambda-demo --zip-file fileb://deployment_package.zip
-      - echo "DONE!!"
+      - echo "Deploying Lambda Function..."
+      - aws lambda update-function-code --function-name your-lambda-function-name --zip-file fileb://lambda_function.zip
+      - echo "Lambda Function deployment completed!"
