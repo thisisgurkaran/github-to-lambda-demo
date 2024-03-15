@@ -1,6 +1,4 @@
-const handler = async (event) => {
-  // TODO implement
-  console.log("new commigt");
-  console.log("new lambda function");
+exports.handler = async (event) => {
+  console.log("here");
   return "nothing";
 };
