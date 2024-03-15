@@ -1,4 +1,5 @@
 exports.handler = async (event) => {
   console.log("here");
-  return "nothing";
+  const data = { statusCode: 200 };
+  return JSON.stringify(data);
 };
